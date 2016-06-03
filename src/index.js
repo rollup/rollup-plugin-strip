@@ -4,11 +4,37 @@ import { walk } from 'estree-walker';
 import MagicString from 'magic-string';
 import { createFilter } from 'rollup-pluginutils';
 
-const firstpass = /\b(?:console|assert|debugger)\b/;
 const whitespace = /\s/;
 
-export default function commonjs ( options = {} ) {
+function flatten ( node ) {
+	let name;
+	let parts = [];
+
+	while ( node.type === 'MemberExpression' ) {
+		if ( node.computed ) return null;
+
+		parts.unshift( node.property.name );
+		node = node.object;
+	}
+
+	if ( node.type !== 'Identifier' ) return null;
+
+	name = node.name;
+	parts.unshift( name );
+
+	return { name, keypath: parts.join( '.' ) };
+}
+
+export default function undebug ( options = {} ) {
 	const filter = createFilter( options.include, options.exclude );
+	const sourceMap = options.sourceMap !== false;
+
+	const removeDebuggerStatements = options.debugger !== false;
+	const functions = ( options.functions || [ 'console.*', 'assert.*' ] )
+		.map( keypath => keypath.replace( /\./g, '\\.' ).replace( /\*/g, '\\w+' ) );
+
+	const firstpass = new RegExp( `\\b(?:${functions.join( '|' )}|debugger)\\b` );
+	const pattern = new RegExp( `^(?:${functions.join( '|' )})$` );
 
 	return {
 		transform ( code, id ) {
@@ -29,6 +55,7 @@ export default function commonjs ( options = {} ) {
 			}
 
 			const magicString = new MagicString( code );
+			let edited = false;
 
 			function remove ( start, end ) {
 				while ( whitespace.test( code[ start - 1 ] ) ) start -= 1;
@@ -36,31 +63,35 @@ export default function commonjs ( options = {} ) {
 			}
 
 			walk( ast, {
-				enter ( node ) {
+				enter ( node, parent ) {
 					if ( options.sourceMap ) {
 						magicString.addSourcemapLocation( node.start );
 						magicString.addSourcemapLocation( node.end );
 					}
 
-					if ( node.type === 'DebuggerStatement' ) {
+					if ( removeDebuggerStatements && node.type === 'DebuggerStatement' ) {
 						remove( node.start, node.end );
+						edited = true;
 					}
 
-					else if ( node.type === 'ExpressionStatement' && node.expression.type === 'CallExpression' ) {
-						const callee = node.expression.callee;
-						if ( callee.type !== 'MemberExpression' ) return;
-						if ( callee.object.type !== 'Identifier' ) return;
-
-						const name = callee.object.name;
-						if ( name === 'console' || name === 'assert' ) {
-							remove( node.start, node.end );
+					else if ( node.type === 'CallExpression' ) {
+						const { keypath } = flatten( node.callee );
+						if ( keypath && pattern.test( keypath ) ) {
+							if ( parent.type === 'ExpressionStatement' ) {
+								remove( parent.start, parent.end );
+							} else {
+								magicString.overwrite( node.start, node.end, 'void 0' );
+							}
+							edited = true;
 						}
 					}
 				}
 			});
 
+			if ( !edited ) return null;
+
 			code = magicString.toString();
-			const map = options.sourceMap ? magicString.generateMap() : null;
+			const map = sourceMap ? magicString.generateMap() : null;
 
 			return { code, map };
 		}

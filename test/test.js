@@ -2,25 +2,39 @@ const fs = require( 'fs' );
 const assert = require( 'assert' );
 const undebug = require( '..' );
 
+function compare ( sample, options ) {
+	const input = fs.readFileSync( `test/samples/${sample}/input.js`, 'utf-8' );
+	const output = undebug( options ).transform( input, 'input.js' );
+
+	assert.equal( output ? output.code : input, fs.readFileSync( `test/samples/${sample}/output.js`, 'utf-8' ) );
+}
+
 describe( 'rollup-plugin-undebug', () => {
 	it( 'removes debugger statements', () => {
-		const input = fs.readFileSync( 'test/samples/debugger/input.js', 'utf-8' );
-		const output = undebug().transform( input, 'input.js' ).code;
+		compare( 'debugger' );
+	});
 
-		assert.equal( output, fs.readFileSync( 'test/samples/debugger/output.js', 'utf-8' ) );
+	it( 'does not remove debugger statements with debugger: false', () => {
+		compare( 'debugger-false', { debugger: false });
 	});
 
 	it( 'removes console statements', () => {
-		const input = fs.readFileSync( 'test/samples/console/input.js', 'utf-8' );
-		const output = undebug().transform( input, 'input.js' ).code;
-
-		assert.equal( output, fs.readFileSync( 'test/samples/console/output.js', 'utf-8' ) );
+		compare( 'console' );
 	});
 
 	it( 'removes assert statements', () => {
-		const input = fs.readFileSync( 'test/samples/assert/input.js', 'utf-8' );
-		const output = undebug().transform( input, 'input.js' ).code;
+		compare( 'assert' );
+	});
 
-		assert.equal( output, fs.readFileSync( 'test/samples/assert/output.js', 'utf-8' ) );
+	it( 'leaves console statements if custom functions are provided', () => {
+		compare( 'console-custom', { functions: [ 'console.log' ]});
+	});
+
+	it( 'removes custom functions', () => {
+		compare( 'custom', { functions: [ 'debug', 'custom.*' ]});
+	});
+
+	it( 'rewrites inline call expressions (not expression statements) as void 0', () => {
+		compare( 'inline-call-expressions' );
 	});
 });
