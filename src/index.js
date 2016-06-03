@@ -83,6 +83,8 @@ export default function strip ( options = {} ) {
 								magicString.overwrite( node.start, node.end, 'void 0' );
 							}
 							edited = true;
+
+							this.skip();
 						}
 					}
 				}
