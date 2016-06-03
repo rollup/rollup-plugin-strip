@@ -1,6 +1,6 @@
 # rollup-plugin-strip
 
-Remove `debugger` statements and functions like `assert` and `console` from your code.
+Remove `debugger` statements and functions like `assert.equal` and `console.log` from your code.
 
 
 ## Installation
