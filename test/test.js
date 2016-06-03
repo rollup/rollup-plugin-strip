@@ -1,15 +1,15 @@
 const fs = require( 'fs' );
 const assert = require( 'assert' );
-const undebug = require( '..' );
+const strip = require( '..' );
 
 function compare ( sample, options ) {
 	const input = fs.readFileSync( `test/samples/${sample}/input.js`, 'utf-8' );
-	const output = undebug( options ).transform( input, 'input.js' );
+	const output = strip( options ).transform( input, 'input.js' );
 
 	assert.equal( output ? output.code : input, fs.readFileSync( `test/samples/${sample}/output.js`, 'utf-8' ) );
 }
 
-describe( 'rollup-plugin-undebug', () => {
+describe( 'rollup-plugin-strip', () => {
 	it( 'removes debugger statements', () => {
 		compare( 'debugger' );
 	});

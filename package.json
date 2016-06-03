@@ -1,20 +1,20 @@
 {
-  "name": "rollup-plugin-undebug",
+  "name": "rollup-plugin-strip",
   "version": "1.0.0",
-  "description": "Remove console, assert and debugger statements from modules",
-  "main": "dist/rollup-plugin-undebug.cjs.js",
+  "description": "Remove debugger statements and functions like assert and console from your code.",
+  "main": "dist/rollup-plugin-strip.cjs.js",
   "scripts": {
     "test": "mocha",
     "pretest": "npm run build:cjs",
     "build": "npm run build:cjs && npm run build:es",
-    "build:cjs": "rollup -c -f cjs -o dist/rollup-plugin-undebug.cjs.js",
-    "build:es": "rollup -c -f es6 -o dist/rollup-plugin-undebug.es.js",
+    "build:cjs": "rollup -c -f cjs -o dist/rollup-plugin-strip.cjs.js",
+    "build:es": "rollup -c -f es6 -o dist/rollup-plugin-strip.es.js",
     "lint": "eslint src",
     "prepublish": "npm run lint && npm test && npm run build:es"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rollup/rollup-plugin-undebug.git"
+    "url": "git+https://github.com/rollup/rollup-plugin-strip.git"
   },
   "keywords": [
     "rollup",
@@ -25,9 +25,9 @@
   "author": "Rich Harris",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rollup/rollup-plugin-undebug/issues"
+    "url": "https://github.com/rollup/rollup-plugin-strip/issues"
   },
-  "homepage": "https://github.com/rollup/rollup-plugin-undebug#readme",
+  "homepage": "https://github.com/rollup/rollup-plugin-strip#readme",
   "dependencies": {
     "acorn": "^3.1.0",
     "magic-string": "^0.15.0",

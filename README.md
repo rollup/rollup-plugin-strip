@@ -1,12 +1,12 @@
-# rollup-plugin-undebug
+# rollup-plugin-strip
 
-Remove `assert`, `console` and `debugger` statements from code.
+Remove `debugger` statements and functions like `assert` and `console` from your code.
 
 
 ## Installation
 
 ```bash
-npm install --save-dev rollup-plugin-undebug
+npm install --save-dev rollup-plugin-strip
 ```
 
 
@@ -14,13 +14,13 @@ npm install --save-dev rollup-plugin-undebug
 
 ```js
 // rollup.config.js
-import undebug from 'rollup-plugin-undebug';
+import strip from 'rollup-plugin-strip';
 
 export default {
   entry: 'src/index.js',
   dest: 'dist/my-lib.js',
   plugins: [
-    undebug({
+    strip({
       // set this to `false` if you don't want to
       // remove debugger statements
       debugger: true,

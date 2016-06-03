@@ -1,4 +1,4 @@
-# rollup-plugin-undebug changelog
+# rollup-plugin-strip changelog
 
 ## 1.0.0
 

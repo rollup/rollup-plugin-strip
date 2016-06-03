@@ -25,7 +25,7 @@ function flatten ( node ) {
 	return { name, keypath: parts.join( '.' ) };
 }
 
-export default function undebug ( options = {} ) {
+export default function strip ( options = {} ) {
 	const filter = createFilter( options.include, options.exclude );
 	const sourceMap = options.sourceMap !== false;
 
