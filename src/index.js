@@ -64,7 +64,7 @@ export default function strip ( options = {} ) {
 
 			walk( ast, {
 				enter ( node, parent ) {
-					if ( options.sourceMap ) {
+					if ( sourceMap ) {
 						magicString.addSourcemapLocation( node.start );
 						magicString.addSourcemapLocation( node.end );
 					}

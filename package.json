@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-strip",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Remove debugger statements and functions like assert.equal and console.log from your code.",
   "main": "dist/rollup-plugin-strip.cjs.js",
   "scripts": {
