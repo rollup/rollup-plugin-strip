@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "Remove debugger statements and functions like assert.equal and console.log from your code.",
   "main": "dist/rollup-plugin-strip.cjs.js",
+  "jsnext:main": "dist/rollup-plugin-strip.es.js",
   "scripts": {
     "test": "mocha",
     "pretest": "npm run build:cjs",
@@ -38,5 +39,8 @@
     "mocha": "^2.5.3",
     "rollup": "^0.30.0",
     "rollup-plugin-buble": "^0.10.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
