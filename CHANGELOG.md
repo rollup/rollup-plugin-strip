@@ -1,5 +1,9 @@
 # rollup-plugin-strip changelog
 
+## 1.0.3
+
+* Fix build
+
 ## 1.0.2
 
 * Default to adding sourcemap locations
