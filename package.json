@@ -6,12 +6,10 @@
   "jsnext:main": "dist/rollup-plugin-strip.es.js",
   "scripts": {
     "test": "mocha",
-    "pretest": "npm run build:cjs",
-    "build": "npm run build:cjs && npm run build:es",
-    "build:cjs": "rollup -c -f cjs -o dist/rollup-plugin-strip.cjs.js",
-    "build:es": "rollup -c -f es6 -o dist/rollup-plugin-strip.es.js",
+    "pretest": "npm run build",
+    "build": "rollup -c",
     "lint": "eslint src",
-    "prepublish": "npm run lint && npm test && npm run build:es"
+    "prepublish": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",
