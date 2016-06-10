@@ -36,6 +36,7 @@
   "devDependencies": {
     "eslint": "^2.11.1",
     "mocha": "^2.5.3",
+    "rollup": "^0.30.0",
     "rollup-plugin-buble": "^0.10.0"
   }
 }
