@@ -6,6 +6,14 @@ import { createFilter } from 'rollup-pluginutils';
 
 const whitespace = /\s/;
 
+function getName ( node ) {
+	if ( node.type === 'Identifier' ) return node.name;
+	if ( node.type === 'ThisExpression' ) return 'this';
+	if ( node.type === 'Super' ) return 'super';
+
+	return null;
+}
+
 function flatten ( node ) {
 	let name;
 	let parts = [];
@@ -17,12 +25,12 @@ function flatten ( node ) {
 		node = node.object;
 	}
 
-	if ( node.type !== 'Identifier' ) return null;
+	name = getName( node );
 
-	name = node.name;
+	if ( !name ) return null;
+
 	parts.unshift( name );
-
-	return { name, keypath: parts.join( '.' ) };
+	return parts.join( '.' );
 }
 
 export default function strip ( options = {} ) {
@@ -75,7 +83,7 @@ export default function strip ( options = {} ) {
 					}
 
 					else if ( node.type === 'CallExpression' ) {
-						const { keypath } = flatten( node.callee );
+						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
 							if ( parent.type === 'ExpressionStatement' ) {
 								remove( parent.start, parent.end );

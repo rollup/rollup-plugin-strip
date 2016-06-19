@@ -37,4 +37,12 @@ describe( 'rollup-plugin-strip', () => {
 	it( 'rewrites inline call expressions (not expression statements) as void 0', () => {
 		compare( 'inline-call-expressions' );
 	});
+
+	it( 'removes methods of this', () => {
+		compare( 'this-method', { functions: [ 'this.*' ]});
+	});
+
+	it( 'removes super calls', () => {
+		compare( 'super-method', { functions: [ 'super.log' ] });
+	});
 });
