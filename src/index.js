@@ -45,6 +45,8 @@ export default function strip ( options = {} ) {
 	const pattern = new RegExp( `^(?:${functions.join( '|' )})$` );
 
 	return {
+		name: 'strip',
+
 		transform ( code, id ) {
 			if ( !filter( id ) ) return null;
 			if ( extname( id ) !== '.js' ) return null;
