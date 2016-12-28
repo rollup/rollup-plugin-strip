@@ -11,10 +11,7 @@
     "lint": "eslint src",
     "prepublish": "npm run lint && npm test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rollup/rollup-plugin-strip.git"
-  },
+  "repository": "rollup/rollup-plugin-strip",
   "keywords": [
     "rollup",
     "modules",
