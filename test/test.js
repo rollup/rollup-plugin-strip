@@ -38,6 +38,10 @@ describe( 'rollup-plugin-strip', () => {
 		compare( 'inline-call-expressions' );
 	});
 
+	it( 'rewrites inline if expessions as void 0', () => {
+		compare( 'inline-if' );
+	});
+
 	it( 'removes methods of this', () => {
 		compare( 'this-method', { functions: [ 'this.*' ]});
 	});
