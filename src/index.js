@@ -1,4 +1,3 @@
-import { extname } from 'path';
 import acorn from 'acorn';
 import { walk } from 'estree-walker';
 import MagicString from 'magic-string';
@@ -34,7 +33,9 @@ function flatten ( node ) {
 }
 
 export default function strip ( options = {} ) {
-	const filter = createFilter( options.include, options.exclude );
+	const include = options.include || '**/*.js';
+	const exclude = options.exclude;
+	const filter = createFilter( include, exclude );
 	const sourceMap = options.sourceMap !== false;
 
 	const removeDebuggerStatements = options.debugger !== false;
@@ -49,7 +50,6 @@ export default function strip ( options = {} ) {
 
 		transform ( code, id ) {
 			if ( !filter( id ) ) return null;
-			if ( extname( id ) !== '.js' ) return null;
 			if ( !firstpass.test( code ) ) return null;
 
 			let ast;

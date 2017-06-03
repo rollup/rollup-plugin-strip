@@ -1,10 +1,12 @@
 const fs = require( 'fs' );
 const assert = require( 'assert' );
 const strip = require( '..' );
+const path = require('path');
 
 function compare ( sample, options ) {
-	const input = fs.readFileSync( `test/samples/${sample}/input.js`, 'utf-8' );
-	const output = strip( options ).transform( input, 'input.js' );
+	const filename = path.resolve(`test/samples/${sample}/input.js`);
+	const input = fs.readFileSync( filename, 'utf-8' );
+	const output = strip( options ).transform( input, filename );
 
 	assert.equal( output ? output.code : input, fs.readFileSync( `test/samples/${sample}/output.js`, 'utf-8' ) );
 }
