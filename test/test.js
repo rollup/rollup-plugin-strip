@@ -42,6 +42,10 @@ describe( 'rollup-plugin-strip', () => {
 		compare( 'inline-if' );
 	});
 
+	it( 'removes expressions in if blocks', () => {
+		compare( 'if-block' );
+	});
+
 	it( 'removes methods of this', () => {
 		compare( 'this-method', { functions: [ 'this.*' ]});
 	});
