@@ -89,7 +89,7 @@ export default function strip ( options = {} ) {
 					else if ( node.type === 'CallExpression' ) {
 						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
-							const parentIsntIf = (parentParent && parentParent.type !== 'IfStatement')
+							const parentIsntIf = (parentParent && parentParent.type !== 'IfStatement');
 							if ( parent.type === 'ExpressionStatement' && parentIsntIf ) {
 								remove( parent.start, parent.end );
 							} else {
