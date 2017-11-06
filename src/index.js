@@ -72,6 +72,8 @@ export default function strip ( options = {} ) {
 				magicString.remove( start, end );
 			}
 
+			let parentParent;
+
 			walk( ast, {
 				enter ( node, parent ) {
 					if ( sourceMap ) {
@@ -87,7 +89,8 @@ export default function strip ( options = {} ) {
 					else if ( node.type === 'CallExpression' ) {
 						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
-							if ( parent.type === 'ExpressionStatement' ) {
+							const parentIsntIf = (parentParent && parentParent.type !== 'IfStatement');
+							if ( parent.type === 'ExpressionStatement' && parentIsntIf ) {
 								remove( parent.start, parent.end );
 							} else {
 								magicString.overwrite( node.start, node.end, 'void 0' );
@@ -97,6 +100,7 @@ export default function strip ( options = {} ) {
 							this.skip();
 						}
 					}
+					parentParent = parent;
 				}
 			});
 
