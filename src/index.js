@@ -1,4 +1,5 @@
 import acorn from 'acorn';
+import { strictEqual } from 'assert';
 import { walk } from 'estree-walker';
 import MagicString from 'magic-string';
 import { createFilter } from 'rollup-pluginutils';
@@ -72,6 +73,8 @@ export default function strip ( options = {} ) {
 				magicString.remove( start, end );
 			}
 
+			const ancestors = [];
+
 			walk( ast, {
 				enter ( node, parent ) {
 					if ( sourceMap ) {
@@ -97,6 +100,18 @@ export default function strip ( options = {} ) {
 							this.skip();
 						}
 					}
+					
+					ancestors.push( node );
+				},
+				
+				exit ( node, parent ) {
+					const popped = ancestors.pop();
+
+					strictEqual(
+						popped,
+						node,
+						'expected ' + node.type + ' but got ' + ( popped && popped.type )
+					);
 				}
 			});
 
