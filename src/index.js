@@ -1,5 +1,4 @@
 import acorn from 'acorn';
-import { strictEqual } from 'assert';
 import { walk } from 'estree-walker';
 import MagicString from 'magic-string';
 import { createFilter } from 'rollup-pluginutils';
