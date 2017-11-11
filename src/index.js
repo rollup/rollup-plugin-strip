@@ -104,7 +104,7 @@ export default function strip ( options = {} ) {
 					ancestors.push( node );
 				},
 				
-				exit ( node, parent ) {
+				exit ( node ) {
 					const popped = ancestors.pop();
 
 					strictEqual(
