@@ -74,7 +74,10 @@ export default function strip ( options = {} ) {
 
 			walk( ast, {
 				enter ( node, parent ) {
-					node.parent = parent;
+					Object.defineProperty( node, 'parent', {
+						value: parent,
+						enumerable: false
+					});
 
 					if ( sourceMap ) {
 						magicString.addSourcemapLocation( node.start );
