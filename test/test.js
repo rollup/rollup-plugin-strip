@@ -40,6 +40,14 @@ describe( 'rollup-plugin-strip', () => {
 		compare( 'inline-call-expressions' );
 	});
 
+	it( 'rewrites inline if expessions as void 0', () => {
+		compare( 'inline-if' );
+	});
+
+	it( 'removes expressions in if blocks', () => {
+		compare( 'if-block' );
+	});
+
 	it( 'removes methods of this', () => {
 		compare( 'this-method', { functions: [ 'this.*' ]});
 	});
