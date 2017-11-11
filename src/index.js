@@ -73,10 +73,10 @@ export default function strip ( options = {} ) {
 				magicString.remove( start, end );
 			}
 
-			const ancestors = [];
-
 			walk( ast, {
 				enter ( node, parent ) {
+					node.parent = parent;
+
 					if ( sourceMap ) {
 						magicString.addSourcemapLocation( node.start );
 						magicString.addSourcemapLocation( node.end );
@@ -90,7 +90,7 @@ export default function strip ( options = {} ) {
 					else if ( node.type === 'CallExpression' ) {
 						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
-							const grandparent = ancestors[ ancestors.length - 2 ];
+							const grandparent = parent.parent;
 							// eslint-disable-next-line
 							console.log( "grandparent", grandparent.type );
 
@@ -104,18 +104,6 @@ export default function strip ( options = {} ) {
 							this.skip();
 						}
 					}
-					
-					ancestors.push( node );
-				},
-				
-				exit ( node ) {
-					const popped = ancestors.pop();
-
-					strictEqual(
-						popped,
-						node,
-						'expected ' + node.type + ' but got ' + ( popped && popped.type )
-					);
 				}
 			});
 
