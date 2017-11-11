@@ -91,6 +91,7 @@ export default function strip ( options = {} ) {
 						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
 							const grandparent = ancestors[ ancestors.length - 2 ];
+							console.log( "grandparent", grandparent.type );
 
 							if ( parent.type === 'ExpressionStatement' && ( grandparent.type === 'BlockStatement' || grandparent.type === 'Program' ) ) {
 								remove( parent.start, parent.end );
