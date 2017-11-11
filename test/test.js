@@ -55,4 +55,8 @@ describe( 'rollup-plugin-strip', () => {
 	it( 'removes super calls', () => {
 		compare( 'super-method', { functions: [ 'super.log' ] });
 	});
+	
+	it( 'replaces case body with void 0', () => {
+		compare( 'switch-case' );
+	});
 });
