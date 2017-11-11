@@ -90,7 +90,9 @@ export default function strip ( options = {} ) {
 					else if ( node.type === 'CallExpression' ) {
 						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
-							if ( parent.type === 'ExpressionStatement' ) {
+							const grandparent = ancestors[ ancestors.length - 2 ];
+
+							if ( parent.type === 'ExpressionStatement' && ( grandparent.type === 'BlockStatement' || grandparent.type === 'Program' ) ) {
 								remove( parent.start, parent.end );
 							} else {
 								magicString.overwrite( node.start, node.end, 'void 0' );
