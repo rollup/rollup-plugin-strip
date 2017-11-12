@@ -71,29 +71,55 @@ export default function strip ( options = {} ) {
 				while ( whitespace.test( code[ start - 1 ] ) ) start -= 1;
 				magicString.remove( start, end );
 			}
+			
+			function isBlock ( node ) {
+				return node && ( node.type === 'BlockStatement' || node.type === 'Program' );
+			}
+			
+			function removeExpression ( node ) {
+				const parent = node.parent;
+
+				if ( parent.type === 'ExpressionStatement' ) {
+					removeStatement( parent );
+				} else {
+					magicString.overwrite( node.start, node.end, 'void 0' );
+				}
+
+				edited = true;
+			}
+			
+			function removeStatement ( node ) {
+				const parent = node.parent;
+
+				if ( isBlock( parent ) ) {
+					remove( node.start, node.end );
+				} else {
+					magicString.overwrite( node.start, node.end, 'void 0;' );
+				}
+
+				edited = true;
+			}
 
 			walk( ast, {
 				enter ( node, parent ) {
+					Object.defineProperty( node, 'parent', {
+						value: parent,
+						enumerable: false
+					});
+
 					if ( sourceMap ) {
 						magicString.addSourcemapLocation( node.start );
 						magicString.addSourcemapLocation( node.end );
 					}
 
 					if ( removeDebuggerStatements && node.type === 'DebuggerStatement' ) {
-						remove( node.start, node.end );
-						edited = true;
+						removeStatement( node );
 					}
 
 					else if ( node.type === 'CallExpression' ) {
 						const keypath = flatten( node.callee );
 						if ( keypath && pattern.test( keypath ) ) {
-							if ( parent.type === 'ExpressionStatement' ) {
-								remove( parent.start, parent.end );
-							} else {
-								magicString.overwrite( node.start, node.end, 'void 0' );
-							}
-							edited = true;
-
+							removeExpression( node );
 							this.skip();
 						}
 					}

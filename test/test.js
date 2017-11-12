@@ -40,11 +40,27 @@ describe( 'rollup-plugin-strip', () => {
 		compare( 'inline-call-expressions' );
 	});
 
+	it( 'rewrites inline if expessions as void 0', () => {
+		compare( 'inline-if' );
+	});
+
+	it( 'removes expressions in if blocks', () => {
+		compare( 'if-block' );
+	});
+
 	it( 'removes methods of this', () => {
 		compare( 'this-method', { functions: [ 'this.*' ]});
 	});
 
 	it( 'removes super calls', () => {
 		compare( 'super-method', { functions: [ 'super.log' ] });
+	});
+	
+	it( 'replaces case body with void 0', () => {
+		compare( 'switch-case' );
+	});
+	
+	it( 'rewrites inline while expressions as void 0', () => {
+		compare( 'inline-while' );
 	});
 });
