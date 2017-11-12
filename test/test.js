@@ -59,4 +59,8 @@ describe( 'rollup-plugin-strip', () => {
 	it( 'replaces case body with void 0', () => {
 		compare( 'switch-case' );
 	});
+	
+	it( 'rewrites inline while expressions as void 0', () => {
+		compare( 'inline-while' );
+	});
 });
