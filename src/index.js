@@ -56,7 +56,7 @@ export default function strip ( options = {} ) {
 
 			try {
 				ast = acorn.parse( code, Object.assign( {
-					ecmaVersion: 6,
+					ecmaVersion: 9,
 					sourceType: 'module'
 				}, options.acorn ) );
 			} catch ( err ) {
