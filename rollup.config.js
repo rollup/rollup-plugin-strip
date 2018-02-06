@@ -1,7 +1,7 @@
 import buble from 'rollup-plugin-buble';
 
 export default {
-	entry: 'src/index.js',
+	input: 'src/index.js',
 	plugins: [ buble() ],
 	targets: [
 		{
@@ -9,7 +9,7 @@ export default {
 			dest: 'dist/rollup-plugin-strip.cjs.js'
 		},
 		{
-			format: 'es6',
+			format: 'es',
 			dest: 'dist/rollup-plugin-strip.es.js'
 		}
 	]
