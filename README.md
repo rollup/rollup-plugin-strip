@@ -17,8 +17,13 @@ npm install --save-dev rollup-plugin-strip
 import strip from 'rollup-plugin-strip';
 
 export default {
-  entry: 'src/index.js',
-  dest: 'dist/my-lib.js',
+  input: 'src/index.js',
+  output: [
+    {
+      format: 'cjs',
+      file: 'dist/my-lib.js'
+    }
+  ],
   plugins: [
     strip({
       // set this to `false` if you don't want to
