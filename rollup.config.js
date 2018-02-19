@@ -1,16 +1,16 @@
 import buble from 'rollup-plugin-buble';
 
 export default {
-	entry: 'src/index.js',
+	input: 'src/index.js',
 	plugins: [ buble() ],
-	targets: [
+	output: [
 		{
 			format: 'cjs',
-			dest: 'dist/rollup-plugin-strip.cjs.js'
+			file: 'dist/rollup-plugin-strip.cjs.js'
 		},
 		{
-			format: 'es6',
-			dest: 'dist/rollup-plugin-strip.es.js'
+			format: 'es',
+			file: 'dist/rollup-plugin-strip.es.js'
 		}
 	]
 };

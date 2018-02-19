@@ -55,10 +55,10 @@ export default function strip ( options = {} ) {
 			let ast;
 
 			try {
-				ast = acorn.parse( code, {
-					ecmaVersion: 6,
+				ast = acorn.parse( code, Object.assign( {
+					ecmaVersion: 9,
 					sourceType: 'module'
-				});
+				}, options.acorn ) );
 			} catch ( err ) {
 				err.message += ` in ${id}`;
 				throw err;
