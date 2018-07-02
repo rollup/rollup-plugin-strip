@@ -30,7 +30,7 @@ export default {
       // remove debugger statements
       debugger: true,
 
-      // defaults to `[ 'console.*', 'assert.*' ]`
+      // defaults to `[ 'console.*', 'assert.*', 'assert' ]`
       functions: [ 'console.log', 'assert.*', 'debug', 'alert' ],
 
       // set this to `false` if you're not using sourcemaps –

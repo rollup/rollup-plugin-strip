@@ -39,7 +39,7 @@ export default function strip ( options = {} ) {
 	const sourceMap = options.sourceMap !== false;
 
 	const removeDebuggerStatements = options.debugger !== false;
-	const functions = ( options.functions || [ 'console.*', 'assert.*' ] )
+	const functions = ( options.functions || [ 'console.*', 'assert.*', 'assert' ] )
 		.map( keypath => keypath.replace( /\./g, '\\.' ).replace( /\*/g, '\\w+' ) );
 
 	const firstpass = new RegExp( `\\b(?:${functions.join( '|' )}|debugger)\\b` );
