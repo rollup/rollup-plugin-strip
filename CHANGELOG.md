@@ -1,5 +1,10 @@
 # rollup-plugin-strip changelog
 
+## 1.2.0
+
+* Use `this.parse` instead of `acorn.parse`
+* Make code removal more conservative ([#9](https://github.com/rollup/rollup-plugin-strip/pull/9))
+
 ## 1.1.1
 
 * Return a `name`
