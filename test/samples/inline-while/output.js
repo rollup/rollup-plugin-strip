@@ -1,1 +1,1 @@
-while ( test() ) void 0;
+while (test()) void 0;

@@ -1,3 +1,3 @@
 if (DEBUG) {
-    console.log( 'debugging' );
+	console.log('debugging');
 }

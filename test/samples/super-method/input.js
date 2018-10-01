@@ -1,7 +1,7 @@
 class Foo {
-	bar () {
+	bar() {
 		a();
-		super.log( 'hello' );
+		super.log('hello');
 		b();
 	}
 }

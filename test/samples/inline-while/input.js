@@ -1,1 +1,1 @@
-while ( test() ) console.log( 'still true!' );
+while (test()) console.log('still true!');

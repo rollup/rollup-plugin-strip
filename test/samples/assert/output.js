@@ -1,4 +1,3 @@
-function foo ( message ) {
-
-	bar( message );
+function foo(message) {
+	bar(message);
 }

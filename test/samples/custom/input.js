@@ -1,6 +1,6 @@
 a();
-debug( 'hello' );
+debug('hello');
 b();
-custom.foo( 'foo' );
-custom.bar( 'bar' );
+custom.foo('foo');
+custom.bar('bar');
 c();

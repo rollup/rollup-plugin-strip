@@ -1,1 +1,1 @@
-DEBUG && console.log( 'debugging' );
+DEBUG && console.log('debugging');

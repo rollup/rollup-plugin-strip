@@ -1,4 +1,4 @@
 a();
-this.foo( 'foo' );
-this.bar( 'bar' );
+this.foo('foo');
+this.bar('bar');
 b();
