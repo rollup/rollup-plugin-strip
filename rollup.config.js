@@ -1,16 +1,9 @@
-import buble from 'rollup-plugin-buble';
+import pkg from './package.json';
 
 export default {
 	input: 'src/index.js',
-	plugins: [ buble() ],
 	output: [
-		{
-			format: 'cjs',
-			file: 'dist/rollup-plugin-strip.cjs.js'
-		},
-		{
-			format: 'es',
-			file: 'dist/rollup-plugin-strip.es.js'
-		}
+		{ format: 'cjs', file: pkg.main },
+		{ format: 'esm', file: pkg.module }
 	]
 };
