@@ -1,4 +1,3 @@
-import acorn from 'acorn';
 import { walk } from 'estree-walker';
 import MagicString from 'magic-string';
 import { createFilter } from 'rollup-pluginutils';
@@ -55,10 +54,7 @@ export default function strip ( options = {} ) {
 			let ast;
 
 			try {
-				ast = acorn.parse( code, Object.assign( {
-					ecmaVersion: 9,
-					sourceType: 'module'
-				}, options.acorn ) );
+				ast = this.parse(code);
 			} catch ( err ) {
 				err.message += ` in ${id}`;
 				throw err;
@@ -71,11 +67,11 @@ export default function strip ( options = {} ) {
 				while ( whitespace.test( code[ start - 1 ] ) ) start -= 1;
 				magicString.remove( start, end );
 			}
-			
+
 			function isBlock ( node ) {
 				return node && ( node.type === 'BlockStatement' || node.type === 'Program' );
 			}
-			
+
 			function removeExpression ( node ) {
 				const parent = node.parent;
 
@@ -87,7 +83,7 @@ export default function strip ( options = {} ) {
 
 				edited = true;
 			}
-			
+
 			function removeStatement ( node ) {
 				const parent = node.parent;
 

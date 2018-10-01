@@ -1,12 +1,18 @@
 const fs = require( 'fs' );
 const assert = require( 'assert' );
+const acorn = require( 'acorn' );
 const strip = require( '..' );
 const path = require('path');
 
 function compare ( sample, options ) {
 	const filename = path.resolve(`test/samples/${sample}/input.js`);
 	const input = fs.readFileSync( filename, 'utf-8' );
-	const output = strip( options ).transform( input, filename );
+	const output = strip( options ).transform.call({
+		parse: code => acorn.parse(code, {
+			sourceType: 'module',
+			ecmaVersion: 9
+		})
+	}, input, filename);
 
 	assert.equal( output ? output.code : input, fs.readFileSync( `test/samples/${sample}/output.js`, 'utf-8' ) );
 }
@@ -55,11 +61,11 @@ describe( 'rollup-plugin-strip', () => {
 	it( 'removes super calls', () => {
 		compare( 'super-method', { functions: [ 'super.log' ] });
 	});
-	
+
 	it( 'replaces case body with void 0', () => {
 		compare( 'switch-case' );
 	});
-	
+
 	it( 'rewrites inline while expressions as void 0', () => {
 		compare( 'inline-while' );
 	});
