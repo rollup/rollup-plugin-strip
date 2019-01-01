@@ -1,5 +1,9 @@
 # rollup-plugin-strip changelog
 
+## 1.2.1
+
+* Update dependencies
+
 ## 1.2.0
 
 * Use `this.parse` instead of `acorn.parse`
