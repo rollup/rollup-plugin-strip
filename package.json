@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/rollup/rollup-plugin-strip#readme",
   "dependencies": {
-    "estree-walker": "^0.5.2",
+    "estree-walker": "^0.6.0",
     "magic-string": "^0.25.1",
     "rollup-pluginutils": "^2.3.3"
   },
@@ -33,7 +33,7 @@
     "acorn": "^6.0.2",
     "eslint": "^5.6.1",
     "mocha": "^5.2.0",
-    "rollup": "^0.66.2"
+    "rollup": "^1.0.0"
   },
   "files": [
     "dist"
