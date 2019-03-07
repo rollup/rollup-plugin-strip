@@ -73,4 +73,8 @@ describe('rollup-plugin-strip', () => {
 	it('rewrites inline while expressions as void 0', () => {
 		compare('inline-while');
 	});
+
+	it('supports object destructuring assignments with default values', () => {
+		compare('object-destructuring-default');
+	});
 });
