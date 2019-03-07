@@ -103,7 +103,8 @@ export default function strip(options = {}) {
 				enter(node, parent) {
 					Object.defineProperty(node, 'parent', {
 						value: parent,
-						enumerable: false
+						enumerable: false,
+						configurable: true
 					});
 
 					if (sourceMap) {
