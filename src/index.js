@@ -101,10 +101,12 @@ export default function strip(options = {}) {
 
 			walk(ast, {
 				enter(node, parent) {
-					Object.defineProperty(node, 'parent', {
-						value: parent,
-						enumerable: false
-					});
+					if (!node.hasOwnProperty('parent')) {
+						Object.defineProperty(node, 'parent', {
+							value: parent,
+							enumerable: false
+						});
+					}
 
 					if (sourceMap) {
 						magicString.addSourcemapLocation(node.start);
