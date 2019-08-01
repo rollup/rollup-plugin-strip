@@ -1,5 +1,10 @@
 # rollup-plugin-strip changelog
 
+## 1.2.2
+
+* Fix object destructuring assignments with default values ([#17](https://github.com/rollup/rollup-plugin-strip/pull/17))
+* update `rollup-pluginutils` ([#22](https://github.com/rollup/rollup-plugin-strip/pull/22))
+
 ## 1.2.1
 
 * Update dependencies
