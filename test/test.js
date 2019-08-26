@@ -85,4 +85,8 @@ describe('rollup-plugin-strip', () => {
 	it('removes multiple labeled blocks', () => {
 		compare('label-block-multiple', { labels: ['first', 'second'] });
 	});
+	
+	it('only removes specified blocks', () => {
+		compare('label-block-discriminate', { labels: ['second'] });
+	});
 });
