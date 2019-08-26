@@ -52,7 +52,7 @@ export default function strip(options = {}) {
 
 		transform(code, id) {
 			if (!filter(id)) return null;
-			if (!firstpass.test(code)) return null;
+			if (functions.length > 0 && !firstpass.test(code)) return null;
 
 			let ast;
 
@@ -117,7 +117,6 @@ export default function strip(options = {}) {
 					if (removeDebuggerStatements && node.type === 'DebuggerStatement') {
 						removeStatement(node);
 					} else if (node.type === 'LabeledStatement') {
-						console.log(labels);
 						if (node.label && labels.includes(node.label.name)) {
 							removeStatement(node);
 						}
