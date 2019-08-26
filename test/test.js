@@ -79,6 +79,6 @@ describe('rollup-plugin-strip', () => {
   });
   
   it('removes labeled blocks', () => {
-    compare('label-block');
-  })
+    compare('label-block', { labels: ['unittest'] });
+  });
 });
