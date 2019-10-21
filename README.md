@@ -2,6 +2,9 @@
 
 Remove `debugger` statements and functions like `assert.equal` and `console.log` from your code.
 
+# Plugin Being Moved
+
+Please stand by, we're moving this plugin to a new monorepo.
 
 ## Installation
 
