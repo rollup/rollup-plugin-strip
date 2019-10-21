@@ -33,6 +33,10 @@ export default {
       // defaults to `[ 'console.*', 'assert.*' ]`
       functions: [ 'console.log', 'assert.*', 'debug', 'alert' ],
 
+      // remove one or more labeled blocks by name
+      // defaults to `[]`
+      labels: ['unittest'],
+
       // set this to `false` if you're not using sourcemaps –
       // defaults to `true`
       sourceMap: true

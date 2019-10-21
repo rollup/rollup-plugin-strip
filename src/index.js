@@ -42,6 +42,8 @@ export default function strip(options = {}) {
 		keypath => keypath.replace(/\./g, '\\.').replace(/\*/g, '\\w+')
 	);
 
+	const labels = options.labels || [];
+
 	const firstpass = new RegExp(`\\b(?:${functions.join('|')}|debugger)\\b`);
 	const pattern = new RegExp(`^(?:${functions.join('|')})$`);
 
@@ -50,7 +52,7 @@ export default function strip(options = {}) {
 
 		transform(code, id) {
 			if (!filter(id)) return null;
-			if (!firstpass.test(code)) return null;
+			if (functions.length > 0 && !firstpass.test(code)) return null;
 
 			let ast;
 
@@ -114,6 +116,10 @@ export default function strip(options = {}) {
 
 					if (removeDebuggerStatements && node.type === 'DebuggerStatement') {
 						removeStatement(node);
+					} else if (node.type === 'LabeledStatement') {
+						if (node.label && labels.includes(node.label.name)) {
+							removeStatement(node);
+						}
 					} else if (node.type === 'CallExpression') {
 						const keypath = flatten(node.callee);
 						if (keypath && pattern.test(keypath)) {

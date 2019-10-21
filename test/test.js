@@ -77,4 +77,16 @@ describe('rollup-plugin-strip', () => {
 	it('supports object destructuring assignments with default values', () => {
 		compare('object-destructuring-default');
 	});
+
+	it('removes labeled blocks', () => {
+		compare('label-block', { labels: ['unittest'] });
+	});
+
+	it('removes multiple labeled blocks', () => {
+		compare('label-block-multiple', { labels: ['first', 'second'] });
+	});
+	
+	it('only removes specified blocks', () => {
+		compare('label-block-discriminate', { labels: ['second'] });
+	});
 });
