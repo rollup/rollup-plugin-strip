@@ -1,10 +1,10 @@
+# Moved
+
+This module has moved and is now available at [@rollup/plugin-strip](https://github.com/rollup/plugins). Please update your dependencies. This repository is no longer maintained.
+
 # rollup-plugin-strip
 
 Remove `debugger` statements and functions like `assert.equal` and `console.log` from your code.
-
-# Plugin Being Moved
-
-Please stand by, we're moving this plugin to a new monorepo.
 
 ## Installation
 
